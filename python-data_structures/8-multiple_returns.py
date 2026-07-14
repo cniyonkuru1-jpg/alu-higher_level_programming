@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""Defines a function that returns the length and first character of a string."""
+"""Defines a function that returns the length and first
+character of a string."""
 
 
 def multiple_returns(sentence):
