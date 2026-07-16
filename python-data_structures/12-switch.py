@@ -1,5 +1,5 @@
-#!/usr/bin/env bash
-a=10
-b=89
-a=$((a+b)); b=$((a-b)); a=$((a-b))
-echo "a=$a - b=$b"
+#!/usr/bin/python3
+a = 1
+b = 2
+a, b = b, a
+print("a = {}".format(a))
