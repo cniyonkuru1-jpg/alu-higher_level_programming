@@ -24,5 +24,24 @@ Test cases for the MyList class.
 >>> single.print_sorted()
 [42]
 
+>>> neg_list = MyList()
+>>> neg_list.append(3)
+>>> neg_list.append(-1)
+>>> neg_list.append(2)
+>>> neg_list.append(-5)
+>>> print(neg_list)
+[3, -1, 2, -5]
+>>> neg_list.print_sorted()
+[-5, -1, 2, 3]
+>>> print(neg_list)
+[3, -1, 2, -5]
+
 >>> isinstance(my_list, list)
 True
+
+>>> str(my_list)
+'[1, 4, 2, 3, 5]'
+
+>>> print(my_list.print_sorted())
+[1, 2, 3, 4, 5]
+None
