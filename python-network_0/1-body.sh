@@ -1,10 +1,3 @@
 #!/bin/bash
-# Sends a GET request to the given URL and displays the body of the
-# response, but only if the status code is 200.
-response=$(curl -s -w "\n%{http_code}" "$1")
-status_code=$(echo "$response" | tail -n1)
-body=$(echo "$response" | sed '$d')
-
-if [ "$status_code" -eq 200 ]; then
-    echo -n "$body"
-fi
+# Sends a GET request (following redirects) and displays the body only if final status is 200
+curl -sL -w "%{http_code}" -o /tmp/body_$$ "$1" | grep -q "^200$" && cat /tmp/body_$$; rm -f /tmp/body_$$
