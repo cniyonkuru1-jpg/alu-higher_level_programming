@@ -1,17 +1,17 @@
 #!/usr/bin/python3
-"""Sends a request to a given URL and displays the body of the
-response, handling HTTPError exceptions by printing the status
-code, using urllib.
-"""
-import sys
-import urllib.error
+"""I documented you"""
+
 import urllib.request
+import urllib.parse
+import sys
 
-
-if __name__ == "__main__":
+if __name__ == '__main__':
+    """"Documented"""
     url = sys.argv[1]
-    try:
-        with urllib.request.urlopen(url) as response:
-            print(response.read().decode("utf-8"))
-    except urllib.error.HTTPError as error:
-        print("Error code: {}".format(error.code))
+    message = {"email": sys.argv[2]}
+    data = urllib.parse.urlencode(message)
+    data = data.encode('ascii')
+    req = urllib.request.Request(url, data)
+    with urllib.request.urlopen(req) as response:
+        content = response.read()
+        print("{}".format(content.decode("utf-8")))
