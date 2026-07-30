@@ -45,3 +45,9 @@ Raises a TypeError when first_name is None::
     >>> say_my_name(None)
     Traceback (most recent call last):
     TypeError: first_name must be a string
+
+Raises a TypeError when both arguments are missing::
+
+    >>> say_my_name()
+    Traceback (most recent call last):
+    TypeError: say_my_name() missing 1 required positional argument: 'first_name'
