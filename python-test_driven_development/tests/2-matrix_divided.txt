@@ -73,3 +73,20 @@ Raises a ZeroDivisionError when div is 0::
     >>> matrix_divided([[1, 2], [3, 4]], 0)
     Traceback (most recent call last):
     ZeroDivisionError: division by zero
+
+Dividing by float('inf') gives a matrix of all 0.0 values::
+
+    >>> matrix_divided([[3, 9], [12, 15]], float('inf'))
+    [[0.0, 0.0], [0.0, 0.0]]
+
+Raises a TypeError when div is missing::
+
+    >>> matrix_divided([[3, 9], [12, 15]])
+    Traceback (most recent call last):
+    TypeError: matrix_divided() missing 1 required positional argument: 'div'
+
+Raises a TypeError when both arguments are missing::
+
+    >>> matrix_divided()
+    Traceback (most recent call last):
+    TypeError: matrix_divided() missing 2 required positional arguments: 'matrix' and 'div'
