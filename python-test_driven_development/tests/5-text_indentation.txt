@@ -1,0 +1,52 @@
+The ``5-text_indentation`` module
+====================================
+
+Using ``text_indentation``
+-----------------------------
+
+Import the function::
+
+    >>> text_indentation = __import__('5-text_indentation').text_indentation
+
+Print a simple sentence ending in a period::
+
+    >>> text_indentation("Hello world.")
+    Hello world.
+    <BLANKLINE>
+
+Print text with multiple punctuation marks::
+
+    >>> text_indentation("Hello: how are you? I am fine.")
+    Hello:
+    <BLANKLINE>
+    how are you?
+    <BLANKLINE>
+    I am fine.
+    <BLANKLINE>
+
+Print text with no ending punctuation (no trailing blank line)::
+
+    >>> text_indentation("No punctuation here")
+    No punctuation here
+
+Print an empty string (prints nothing)::
+
+    >>> text_indentation("")
+
+Raises a TypeError when text is not a string::
+
+    >>> text_indentation(12)
+    Traceback (most recent call last):
+    TypeError: text must be a string
+
+Raises a TypeError when text is None::
+
+    >>> text_indentation(None)
+    Traceback (most recent call last):
+    TypeError: text must be a string
+
+Raises a TypeError when text is a list::
+
+    >>> text_indentation(["Hello."])
+    Traceback (most recent call last):
+    TypeError: text must be a string
