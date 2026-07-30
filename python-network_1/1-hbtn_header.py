@@ -1,14 +1,9 @@
 #!/usr/bin/python3
-"""Displays your GitHub id using Basic Authentication."""
+"""Displays the value of the X-Request-Id header from a response."""
 import sys
-import requests
+from urllib import request
 
 
 if __name__ == "__main__":
-    username = sys.argv[1]
-    password = sys.argv[2]
-    response = requests.get(
-        "https://api.github.com/user",
-        auth=(username, password)
-    )
-    print(response.json().get("id"))
+    with request.urlopen(sys.argv[1]) as response:
+        print(response.getheader("X-Request-Id"))
