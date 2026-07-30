@@ -66,3 +66,15 @@ Raises a TypeError when b is a dictionary::
     >>> add_integer(3, {"a": 1})
     Traceback (most recent call last):
     TypeError: b must be an integer
+
+Raises a ValueError when a is NaN, since it cannot convert float NaN to integer::
+
+    >>> add_integer(float('nan'), 1)
+    Traceback (most recent call last):
+    ValueError: cannot convert float NaN to integer
+
+Raises an OverflowError when a is a float that overflows on casting to int::
+
+    >>> add_integer(float('inf'), 1)
+    Traceback (most recent call last):
+    OverflowError: cannot convert float infinity to integer
