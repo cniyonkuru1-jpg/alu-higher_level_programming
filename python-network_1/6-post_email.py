@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-"""Sends a POST request with an email parameter to a given URL,
-using requests, and displays the body of the response.
-"""
+"""Sends a POST request with an email parameter and displays the body."""
 import sys
 import requests
 
