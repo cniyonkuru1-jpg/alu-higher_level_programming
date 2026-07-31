@@ -22,11 +22,21 @@ class TestBase(unittest.TestCase):
         b = Base(5)
         self.assertTrue(hasattr(b, "id"))
 
-    def test_id_none_generates_unique_id(self):
-        """Passing no id increments the internal counter."""
+    def test_base_no_args_assigns_id_automatically(self):
+        """Base() assigns an id automatically."""
+        b = Base()
+        self.assertIsNotNone(b.id)
+
+    def test_base_auto_id_increments(self):
+        """Base() assigns id = previous auto id + 1."""
         b1 = Base()
         b2 = Base()
         self.assertEqual(b2.id, b1.id + 1)
+
+    def test_base_89_saves_id_passed(self):
+        """Base(89) saves the id passed as argument."""
+        b = Base(89)
+        self.assertEqual(b.id, 89)
 
     def test_id_zero(self):
         """An id of 0 is respected, not treated as falsy/None."""
@@ -47,19 +57,23 @@ class TestBase(unittest.TestCase):
 class TestBaseToJSONString(unittest.TestCase):
     """Test cases for Base.to_json_string."""
 
-    def test_none_returns_empty_list_string(self):
-        """None input returns the string '[]'."""
+    def test_to_json_string_none(self):
+        """Base.to_json_string(None) returns '[]'."""
         self.assertEqual(Base.to_json_string(None), "[]")
 
-    def test_empty_list_returns_empty_list_string(self):
-        """Empty list input returns the string '[]'."""
+    def test_to_json_string_empty_list(self):
+        """Base.to_json_string([]) returns '[]'."""
         self.assertEqual(Base.to_json_string([]), "[]")
 
-    def test_list_of_dicts(self):
-        """A list of dicts is converted to valid JSON."""
-        list_dicts = [{"id": 1, "width": 10, "height": 4}]
-        result = Base.to_json_string(list_dicts)
-        self.assertEqual(json.loads(result), list_dicts)
+    def test_to_json_string_list_with_dict(self):
+        """Base.to_json_string([{'id': 12}]) returns valid JSON."""
+        result = Base.to_json_string([{'id': 12}])
+        self.assertEqual(json.loads(result), [{'id': 12}])
+
+    def test_to_json_string_returns_string(self):
+        """Base.to_json_string([{'id': 12}]) returns a string."""
+        result = Base.to_json_string([{'id': 12}])
+        self.assertIsInstance(result, str)
 
     def test_return_type_is_str(self):
         """The return value is always a string."""
@@ -69,24 +83,29 @@ class TestBaseToJSONString(unittest.TestCase):
 class TestBaseFromJSONString(unittest.TestCase):
     """Test cases for Base.from_json_string."""
 
-    def test_none_returns_empty_list(self):
-        """None input returns an empty list."""
+    def test_from_json_string_none(self):
+        """Base.from_json_string(None) returns an empty list."""
         self.assertEqual(Base.from_json_string(None), [])
 
-    def test_empty_string_returns_empty_list(self):
-        """Empty string input returns an empty list."""
-        self.assertEqual(Base.from_json_string(""), [])
+    def test_from_json_string_empty_list_string(self):
+        """Base.from_json_string("[]") returns an empty list."""
+        self.assertEqual(Base.from_json_string("[]"), [])
+
+    def test_from_json_string_list_with_dict(self):
+        """Base.from_json_string('[{ "id": 89 }]') parses correctly."""
+        result = Base.from_json_string('[{ "id": 89 }]')
+        self.assertEqual(result, [{"id": 89}])
+
+    def test_from_json_string_returns_list(self):
+        """Base.from_json_string('[{ "id": 89 }]') returns a list."""
+        result = Base.from_json_string('[{ "id": 89 }]')
+        self.assertIsInstance(result, list)
 
     def test_round_trip(self):
         """A list survives a to_json_string / from_json_string round trip."""
         list_dicts = [{"id": 1, "width": 10, "height": 4}]
         json_string = Base.to_json_string(list_dicts)
         self.assertEqual(Base.from_json_string(json_string), list_dicts)
-
-    def test_return_type_is_list(self):
-        """The return value is always a list."""
-        result = Base.from_json_string('[{"id": 1}]')
-        self.assertIsInstance(result, list)
 
 
 class TestBaseSaveToFile(unittest.TestCase):
